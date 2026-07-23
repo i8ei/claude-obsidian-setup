@@ -11,7 +11,7 @@ README = ROOT / "README.md"
 SETUP = ROOT / "setup.md"
 CHANGELOG = ROOT / "CHANGELOG.md"
 SECURITY = ROOT / "SECURITY.md"
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 
 
 def fail(message: str) -> None:
@@ -46,7 +46,13 @@ def main() -> int:
         "## アンインストール",
         "<!-- claude-obsidian-setup:start -->",
         "<!-- claude-obsidian-setup:end -->",
+        "<!-- codex-obsidian-setup:start -->",
+        "<!-- codex-obsidian-setup:end -->",
         "disable-model-invocation: true",
+        "allow_implicit_invocation: false",
+        "~/.codex/AGENTS.md",
+        "~/.agents/skills/vault-save/SKILL.md",
+        "$vault-save",
         "claude plugin install obsidian@obsidian-skills",
     )
     for marker in required_setup_markers:
@@ -61,29 +67,42 @@ def main() -> int:
         if marker in readme or marker in setup:
             errors.append(f"legacy instruction remains: {marker}")
 
-    start_markers = setup.count("<!-- claude-obsidian-setup:start -->")
-    end_markers = setup.count("<!-- claude-obsidian-setup:end -->")
-    if start_markers < 1 or end_markers < 1:
-        errors.append("setup.md: managed block markers are missing")
-    if start_markers != end_markers:
-        errors.append("setup.md: managed block start/end markers are unbalanced")
+    for managed_name in ("claude-obsidian-setup", "codex-obsidian-setup"):
+        start_markers = setup.count(f"<!-- {managed_name}:start -->")
+        end_markers = setup.count(f"<!-- {managed_name}:end -->")
+        if start_markers < 1 or end_markers < 1:
+            errors.append(f"setup.md: {managed_name} markers are missing")
+        if start_markers != end_markers:
+            errors.append(f"setup.md: {managed_name} markers are unbalanced")
 
     template = setup.split(
-        "## 付録B: ~/.claude/skills/vault-save/SKILL.md テンプレート", 1
+        "## 付録B-1: Claude Code用 vault-save テンプレート", 1
     )
     if len(template) != 2:
-        errors.append("setup.md: vault-save Skill appendix not found")
+        errors.append("setup.md: Claude Code vault-save appendix not found")
     else:
-        skill_section = template[1].split("## 付録C:", 1)[0]
+        skill_section = template[1].split("## 付録B-2:", 1)[0]
         if not re.search(r"^---\nname: vault-save\n", skill_section, re.MULTILINE):
-            errors.append("setup.md: vault-save Skill frontmatter is malformed")
+            errors.append("setup.md: Claude Code vault-save frontmatter is malformed")
+
+    codex_template = setup.split(
+        "## 付録B-2: Codex用 vault-save テンプレート", 1
+    )
+    if len(codex_template) != 2:
+        errors.append("setup.md: Codex vault-save appendix not found")
+    else:
+        skill_section = codex_template[1].split("## 付録C:", 1)[0]
+        if not re.search(r"^---\nname: vault-save\n", skill_section, re.MULTILINE):
+            errors.append("setup.md: Codex vault-save frontmatter is malformed")
+        if "allow_implicit_invocation: false" not in skill_section:
+            errors.append("setup.md: Codex vault-save must disable implicit invocation")
 
     for error in errors:
         fail(error)
     if errors:
         return 1
 
-    print("OK: v1.1.0 setup instructions validated")
+    print("OK: v1.2.0 setup instructions validated")
     return 0
 
 
