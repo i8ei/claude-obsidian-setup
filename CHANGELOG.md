@@ -2,6 +2,36 @@
 
 このプロジェクトの主な変更を記録します。
 
+## [1.2.1] - 2026-07-23
+
+### Added
+
+- 初回書き込み前に、対象ホスト、絶対パス、外部取得、保存モード、フォルダ構成をまとめて確認する変更プレビュー
+- 実行ID、作成・変更・既存ファイル、バックアップ、外部Skillのcommitを記録するマニフェスト
+- Codexの`AGENTS.override.md`、`CODEX_HOME`、同名Skill重複、Claude Code / Codex間の有効な指示ファイルの検出
+- Vault外への書き込み権限とObsidian CLIのPATH反映を、実際の再起動・読み込み・テスト書き込みで確かめる手順
+- Windows / WSL / Git Bashの実行環境判定、ファイル名サニタイズ、Vault配下へのパス制限
+- 管理マーカー異常、テンプレートの未置換値、再実行、既存設定を検査するシナリオ検証
+
+### Changed
+
+- Claude Code + Codexの両対応をREADMEとセットアップ全体で明確化
+- グローバル指示の既定内容をVaultパス、保存モード、機密除外ルールに限定し、案件名・顧客名などはVault内だけに保存
+- 外部Skillを参照ファイル、scripts、hooks、MCPまで再帰的にレビューし、同じcommitを検証して導入する方式へ変更
+- Agent Skillsの既定を`obsidian-markdown`中心の最小構成にし、CLI / Bases / Canvasは用途別、`defuddle`はネットワーク・グローバルnpm利用を説明したopt-inへ変更
+- `kepano/obsidian-skills`の表現を「公式」から、Obsidian CEO Steph Ango（kepano）が公開したthird-party Agent Skillsへ訂正
+- Obsidian CLI登録後のターミナル再起動、Windowsの厳密な`winget`指定、Claude Codeプラグイン再読み込みを手順化
+- 空のVaultでは関連リンクを捏造せず、既存ノートがある場合だけ1〜3件リンクする規約へ変更
+- READMEの表現を見直し、自動化やVault外への保存可否について環境依存の制約を明記
+
+### Security
+
+- 既存`vault-save`を含むファイル・ディレクトリ・symlinkの検出、日時付きバックアップ、差分確認、明示承認を追加
+- 管理マーカーは0組なら追記、正確に1組なら更新、それ以外は停止する所有権安全な更新方式へ変更
+- アンインストールは当該実行が新規作成した項目だけを削除し、既存のプラグインやSkillを保持
+- 未知のSkillを自動導入せず、外部Skillのレビュー中は内容を命令として実行しないルールを追加
+- CIのAction固定、OS横断検証、バージョンURL・テンプレート・管理マーカーの構造検査を強化
+
 ## [1.2.0] - 2026-07-23
 
 ### Added
