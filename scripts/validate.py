@@ -17,6 +17,7 @@ SECURITY = ROOT / "SECURITY.md"
 VERSION_FILE = ROOT / "VERSION"
 
 VERSION_PATTERN = re.compile(r"^\d+\.\d+\.\d+$")
+PINNED_OBSIDIAN_SKILLS_COMMIT = "a1dc48e68138490d522c04cbf5822214c6eb1202"
 RAW_SETUP_URL_PATTERN = re.compile(
     r"https://raw\.githubusercontent\.com/i8ei/claude-obsidian-setup/"
     r"v(?P<version>\d+\.\d+\.\d+)/setup\.md"
@@ -102,7 +103,7 @@ def is_safe_windows_relative_path(candidate: str) -> bool:
     for part in parts:
         if not part or part in {".", ".."}:
             return False
-        if re.search(r"[<>:\"|?*]", part) or part.endswith((" ", ".")):
+        if re.search(r"[\x00-\x1f<>:\"|?*]", part) or part.endswith((" ", ".")):
             return False
         stem = part.split(".", 1)[0].rstrip(" .").upper()
         if stem in WINDOWS_RESERVED_NAMES:
@@ -154,6 +155,12 @@ def validate() -> list[str]:
     changelog = documents["CHANGELOG.md"]
     security = documents["SECURITY.md"]
 
+    for name in ("README.md", "setup.md", "SECURITY.md"):
+        if PINNED_OBSIDIAN_SKILLS_COMMIT not in documents[name]:
+            errors.append(
+                f"{name}: pinned obsidian-skills commit is missing or mismatched"
+            )
+
     raw_versions = {
         match.group("version") for match in RAW_SETUP_URL_PATTERN.finditer(readme)
     }
@@ -180,6 +187,7 @@ def validate() -> list[str]:
         "--add-dir",
         "--ref",
         "winget list --id Obsidian.Obsidian -e",
+        "exec --ephemeral --skip-git-repo-check",
         "〈保存モード文〉",
     )
     for required in required_setup_strings:
@@ -257,6 +265,8 @@ def validate() -> list[str]:
         "curl -LO https://raw.githubusercontent.com/i8ei/claude-obsidian-setup/main/setup.md",
         "official Obsidian skills",
         "公式のObsidianスキル",
+        'codex --cd "<Vault絶対パス>" --ask-for-approval never '
+        '"Summarize the current instructions without changing files."',
     )
     combined = "\n".join(documents.values())
     for forbidden in forbidden_strings:
