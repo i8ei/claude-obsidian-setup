@@ -96,6 +96,9 @@ class WindowsPathScenarioTests(unittest.TestCase):
             "Folder\\AUX",
             "Folder\\bad?.md",
             "Folder\\trailing. ",
+            "Folder\\null\x00byte.md",
+            "Folder\\tab\tname.md",
+            "Folder\\unit\x1fseparator.md",
         )
         for candidate in unsafe:
             with self.subTest(candidate=candidate):

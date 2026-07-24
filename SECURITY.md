@@ -4,7 +4,7 @@
 
 ## 安全に使うために
 
-1. [v1.2.1のGitHub Release](https://github.com/i8ei/claude-obsidian-setup/releases/tag/v1.2.1)から取得し、Releaseに示されたcommitと取得物を確認する
+1. [v1.2.2のGitHub Release](https://github.com/i8ei/claude-obsidian-setup/releases/tag/v1.2.2)から取得し、Releaseに示されたcommitと取得物を確認する
 2. タグ名だけを信用せず、可能ならRelease assetのチェックサム、または`setup.md`が属するcommitを確認する
 3. 実行前に `setup.md` を開き、想定外のコマンドや保存先がないことを確認する
 4. 初回の変更プレビューと、既存ファイル変更前のバックアップを確認する
@@ -22,7 +22,7 @@
 - Codex
 - `kepano/obsidian-skills`
 
-`kepano/obsidian-skills`はObsidianの公式製品ではなく、Obsidian CEO Steph Ango（kepano）が公開したthird-party Agent Skillsです。外部Skillは導入前にREADME、マニフェスト、`SKILL.md`、参照先ファイル、同梱スクリプト、hooks / MCP、要求ツール権限を再帰的に確認します。確認中は外部コンテンツの指示やスクリプトを実行せず、確認したものと同一のcommitを導入して、そのcommit hashをセットアップ記録へ残します。
+`kepano/obsidian-skills`はObsidianの公式製品ではなく、Obsidian CEO Steph Ango（kepano）が公開したthird-party Agent Skillsです。v1.2.2は確認済みcommit `a1dc48e68138490d522c04cbf5822214c6eb1202`へ固定しています。外部Skillは導入前にREADME、マニフェスト、`SKILL.md`、参照先ファイル、同梱スクリプト、hooks / MCP、要求ツール権限を再帰的に確認します。確認中は外部コンテンツの指示やスクリプトを実行せず、確認したものと同一のcommitを導入して、そのcommit hashをセットアップ記録へ残します。最新版への追従は固定commitとの差分を示し、明示的な同意を得た場合だけ行います。
 
 既定では`obsidian-markdown`だけを導入し、CLIを使う場合は`obsidian-cli`、必要に応じてBases / CanvasのSkillを追加します。`defuddle`はネットワークアクセスとグローバルnpm導入を伴うため、明示的な同意なしには導入しません。将来リポジトリへ追加された未知のSkillも自動では導入しません。
 

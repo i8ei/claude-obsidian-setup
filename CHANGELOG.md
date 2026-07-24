@@ -2,6 +2,24 @@
 
 このプロジェクトの主な変更を記録します。
 
+## [1.2.2] - 2026-07-24
+
+### Fixed
+
+- WindowsのVault相対パス検査でNUL、TAB、`\x1f`などの制御文字を拒否し、回帰テストを追加
+- Codexの最終確認を対話TUIではなく、read-only・ephemeralな`codex exec`で実行
+- Pull Requestで`push`と`pull_request`の検証が二重実行されないよう、push対象を`main`へ限定
+
+### Security
+
+- `kepano/obsidian-skills`の既定導入元を、リリースで確認済みのcommit `a1dc48e68138490d522c04cbf5822214c6eb1202`へ固定
+- 最新の外部Skillへ追従する場合は、固定commitとの差分提示、明示opt-in、再帰レビューを必須化
+
+### Changed
+
+- 同一refの古いCIを停止するconcurrency設定を追加
+- Codex CLIの動作確認環境を0.145.0へ更新
+
 ## [1.2.1] - 2026-07-23
 
 ### Added
