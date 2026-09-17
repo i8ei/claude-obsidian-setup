@@ -4,7 +4,7 @@ Claude Code または Codex に読ませるだけで、Obsidian との連携を�
 
 Obsidian のインストールから、AI が迷子にならないための Vault 設定（`CLAUDE.md` / `AGENTS.md`）、会話の成果をノートに記録する仕組みまで、実行中のエージェントが対話しながら進めてくれます。実運用中の構成から汎用部分を抜き出したものです。
 
-- **最終更新**: 2026-07（v1.2.2）
+- **最終更新**: 2026-09（v1.3.0）
 - **対応**: macOS / Windows（Linux は実験的）
 - **必要環境**: [Claude Code](https://claude.com/claude-code) または [Codex](https://developers.openai.com/codex/)、Obsidian（インストーラ **1.12.7 以上**）
 - 対応バージョンの詳細は [setup.md](setup.md) 冒頭の「動作確認環境」を参照
@@ -21,13 +21,13 @@ Obsidian のインストールから、AI が迷子にならないための Vaul
    **macOS / Linux**
 
    ```bash
-   curl -fLO https://raw.githubusercontent.com/i8ei/claude-obsidian-setup/v1.2.2/setup.md
+   curl -fLO https://raw.githubusercontent.com/i8ei/claude-obsidian-setup/v1.3.0/setup.md
    ```
 
    **Windows (PowerShell)**
 
    ```powershell
-   Invoke-WebRequest -Uri "https://raw.githubusercontent.com/i8ei/claude-obsidian-setup/v1.2.2/setup.md" -OutFile "setup.md"
+   Invoke-WebRequest -Uri "https://raw.githubusercontent.com/i8ei/claude-obsidian-setup/v1.3.0/setup.md" -OutFile "setup.md"
    ```
 
    > **実行前に一度目を通してください。** setup.md はAIエージェントに実行させる指示書です。何をするファイルか自分の目で確認してから使うのが安全です（[SECURITY.md](SECURITY.md)）。
@@ -66,6 +66,10 @@ Obsidian のインストールから、AI が迷子にならないための Vaul
 1. **description は AI の目次** — 全ノートの frontmatter に1行要約を付ける（作成時の補助をエージェントへ任せられます）
 2. **リンクのないノートは存在しないのと同じ** — 保存＝MOCへの1行＋関連ノートへの wikilink までワンセット
 3. **［要確認］印は未来の自分への保険** — AI が書いた未確認情報に印を付け、後日「事実」として引用される事故を防ぐ
+
+## 追加パッケージ
+
+- [kura-index](addons/kura-index/README.md): Vault の SQLite 全文検索インデックス。ノートが100枚を超えた頃に。旧稿・内部ノートを検索から隠す、リンク切れや description 漏れを点検する
 
 ## 安全性
 

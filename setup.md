@@ -14,7 +14,7 @@
 - **セットアップ対象**: Step 0 で選ぶ Claude Code / Codex / 両方
 - **明示呼び出し**: Claude Code は `/vault-save`、Codex は `$vault-save`
 
-## 動作確認環境（2026-07 / v1.2.2 時点）
+## 動作確認環境（2026-07 / v1.2.2 時点。v1.3.0 は追加パッケージのみで本体手順は同一）
 
 - Claude Code: 2.x 系
 - Codex CLI: 0.145.0
