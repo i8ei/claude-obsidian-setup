@@ -2,6 +2,13 @@
 
 このプロジェクトの主な変更を記録します。
 
+## [1.3.0] - 2026-09-17
+
+### Added
+
+- 追加パッケージ `addons/kura-index`: Vault の SQLite FTS5 全文検索インデックス（`search` / `map` / `links` / `backlinks` / `orphans` / `check`）。lifecycle・visibility による旧稿・内部ノートの既定非表示、NFD ファイル名の正規化、Vault 読み取り失敗時にインデックスを壊さない保護つき
+- kura-index のシナリオテスト
+
 ## [1.2.2] - 2026-07-24
 
 ### Fixed
