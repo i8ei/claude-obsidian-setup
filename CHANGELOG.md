@@ -2,6 +2,19 @@
 
 このプロジェクトの主な変更を記録します。
 
+## [1.4.0] - 2026-09-22
+
+### Added
+
+- 追加パッケージ `addons/vault-search`: 旧 kura-index を直球の名称 `vault-search`（`vault_search.py`）へ改名
+- 全角・半角の表記ゆれを吸収する NFKC 正規化（インデックスと検索クエリの双方）
+- 検索実行時のインデックス陳腐化検知（`WARNING: index is stale` を stderr に出力）
+- `check` コマンドの強化: `[要確認]` / `［要確認］` 印の棚卸し、および `superseded_by` があるのに `lifecycle` が superseded でないノートの検出
+- 取り込み前のファイル棚卸しコマンド `scan`（読み取り専用）の追加
+- `inbox/archive/` を通常検索から既定で除外（archive 扱い）
+- 環境変数 `VAULT_SEARCH_VAULT` / `VAULT_SEARCH_DB` への移行（`KURA_VAULT` 等の後方互換維持）
+- セットアップ Step 0 にデータ学習設定の確認・記録（任意）の案内を追加
+
 ## [1.3.0] - 2026-09-17
 
 ### Added
